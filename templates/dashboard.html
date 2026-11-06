@@ -1,0 +1,173 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container-fluid">
+    <div class="row">
+        <!-- Sidebar -->
+        <nav class="col-md-3 col-lg-2 d-md-block bg-light sidebar collapse">
+            <div class="position-sticky pt-3">
+                <ul class="nav flex-column">
+                    <li class="nav-item">
+                        <a class="nav-link active text-success" href="{{ url_for('dashboard.index') }}">
+                            <i class="fas fa-tachometer-alt"></i> Dashboard
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-success" href="{{ url_for('prediction.detect') }}">
+                            <i class="fas fa-camera"></i> Disease Detection
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-success" href="{{ url_for('prediction.history') }}">
+                            <i class="fas fa-history"></i> Prediction History
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-success" href="{{ url_for('dashboard.analytics') }}">
+                            <i class="fas fa-chart-bar"></i> Analytics
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+
+        <!-- Main content -->
+        <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+            <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+                <h1 class="h2">Dashboard</h1>
+                <div class="btn-toolbar mb-2 mb-md-0">
+                    <div class="btn-group me-2">
+                        <a href="{{ url_for('prediction.detect') }}" class="btn btn-sm btn-success">
+                            <i class="fas fa-camera"></i> New Detection
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <h5>Welcome, {{ username }}!</h5>
+
+            <!-- Analytics Cards -->
+            <div class="row g-4 mb-4">
+                <div class="col-xl-3 col-md-6">
+                    <div class="card border-0 shadow-sm bg-primary text-white">
+                        <div class="card-body">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <div>
+                                    <h6 class="card-title mb-0">Total Predictions</h6>
+                                    <h2 class="mb-0">{{ analytics.total }}</h2>
+                                </div>
+                                <i class="fas fa-chart-line fa-2x opacity-75"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-3 col-md-6">
+                    <div class="card border-0 shadow-sm bg-success text-white">
+                        <div class="card-body">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <div>
+                                    <h6 class="card-title mb-0">Healthy Crops</h6>
+                                    <h2 class="mb-0">{{ analytics.healthy }}</h2>
+                                </div>
+                                <i class="fas fa-leaf fa-2x opacity-75"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-3 col-md-6">
+                    <div class="card border-0 shadow-sm bg-warning text-dark">
+                        <div class="card-body">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <div>
+                                    <h6 class="card-title mb-0">Diseased Crops</h6>
+                                    <h2 class="mb-0">{{ analytics.diseased }}</h2>
+                                </div>
+                                <i class="fas fa-bug fa-2x opacity-75"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-3 col-md-6">
+                    <div class="card border-0 shadow-sm bg-info text-white">
+                        <div class="card-body">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <div>
+                                    <h6 class="card-title mb-0">Detection Rate</h6>
+                                    <h2 class="mb-0">{{ "%.1f"|format((analytics.total / 1.0) * 100 if analytics.total > 0 else 0) }}%</h2>
+                                </div>
+                                <i class="fas fa-percentage fa-2x opacity-75"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row g-4">
+                <div class="col-lg-6">
+                    <div class="card shadow-sm">
+                        <div class="card-header bg-success text-white">
+                            <h5 class="mb-0"><i class="fas fa-clock"></i> Recent Predictions</h5>
+                        </div>
+                        <div class="card-body">
+                            {% if analytics.recent %}
+                            <div class="list-group list-group-flush">
+                                {% for pred in analytics.recent %}
+                                <a href="{{ url_for('prediction.view_result', pred_id=pred.id) }}" class="list-group-item list-group-item-action">
+                                    <div class="d-flex w-100 justify-content-between">
+                                        <h6 class="mb-1">{{ pred.crop_name }} - {{ pred.predicted_disease }}</h6>
+                                        <small>{{ pred.created_at }}</small>
+                                    </div>
+                                    <small class="text-muted">Confidence: {{ "%.1f"|format(pred.confidence * 100) }}%</small>
+                                </a>
+                                {% endfor %}
+                            </div>
+                            {% else %}
+                            <p class="text-muted">No predictions yet. <a href="{{ url_for('prediction.detect') }}">Start detecting</a></p>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="card shadow-sm">
+                        <div class="card-header bg-success text-white">
+                            <h5 class="mb-0"><i class="fas fa-chart-pie"></i> Disease Distribution</h5>
+                        </div>
+                        <div class="card-body">
+                            <canvas id="diseaseChart" width="400" height="200"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+    const ctx = document.getElementById('diseaseChart').getContext('2d');
+    const diseaseData = {
+        labels: [{% for disease in analytics.top_diseases %}'{{ disease.predicted_disease }}'{% if not loop.last %}, {% endif %}{% endfor %}],
+        datasets: [{
+            label: 'Predictions',
+            data: [{% for disease in analytics.top_diseases %}{{ disease.count }}{% if not loop.last %}, {% endif %}{% endfor %}],
+            backgroundColor: [
+                '#28a745', '#dc3545', '#ffc107', '#17a2b8', '#6c757d'
+            ]
+        }]
+    };
+    new Chart(ctx, {
+        type: 'pie',
+        data: diseaseData,
+        options: {
+            responsive: true,
+            plugins: {
+                legend: {
+                    position: 'bottom',
+                }
+            }
+        }
+    });
+</script>
+{% endblock %}

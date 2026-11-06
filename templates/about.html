@@ -1,0 +1,95 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-10">
+            <h1 class="text-center text-success mb-4"><i class="fas fa-info-circle"></i> About This Project</h1>
+            
+            <div class="card shadow mb-4">
+                <div class="card-header bg-success text-white">
+                    <h4 class="mb-0">Project Overview</h4>
+                </div>
+                <div class="card-body">
+                    <p class="lead">AI-Based Crop Disease Prediction and Recommendation System Using Machine Learning and Computer Vision</p>
+                    <p>This project detects crop diseases from leaf images using a MobileNetV2-based deep learning model. Users can upload images, view predictions with confidence scores, read disease information, and receive preventive recommendations.</p>
+                    <p><strong>Dataset mode:</strong> This setup uses the PlantVillage 100-Image Tomato subset (20 images each for 5 classes) for demonstration/training practice. A larger dataset is required for reliable real-world performance.</p>
+                </div>
+            </div>
+            
+            <div class="row g-4 mb-4">
+                <div class="col-md-6">
+                    <div class="card shadow h-100">
+                        <div class="card-header bg-info text-white">
+                            <h5 class="mb-0"><i class="fas fa-bullseye"></i> Objectives</h5>
+                        </div>
+                        <div class="card-body">
+                            <ul>
+                                <li>Develop an AI-powered system for early crop disease detection</li>
+                                <li>Provide disease classification using deep learning</li>
+                                <li>Offer preventive recommendations and guidance</li>
+                                <li>Create a user-friendly web interface</li>
+                                <li>Maintain prediction history and analytics</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="card shadow h-100">
+                        <div class="card-header bg-warning text-dark">
+                            <h5 class="mb-0"><i class="fas fa-cogs"></i> Technologies Used</h5>
+                        </div>
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-6">
+                                    <strong>Frontend:</strong>
+                                    <ul class="mb-2">
+                                        <li>HTML5, CSS3</li>
+                                        <li>JavaScript</li>
+                                        <li>Bootstrap 5</li>
+                                        <li>Chart.js</li>
+                                    </ul>
+                                </div>
+                                <div class="col-6">
+                                    <strong>Backend:</strong>
+                                    <ul class="mb-2">
+                                        <li>Python, Flask</li>
+                                        <li>SQLite</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <strong>Machine Learning:</strong>
+                            <ul>
+                                <li>TensorFlow/Keras</li>
+                                <li>MobileNetV2 Transfer Learning</li>
+                                <li>OpenCV, NumPy, Pandas</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="card shadow mb-4">
+                <div class="card-header bg-success text-white">
+                    <h5 class="mb-0"><i class="fas fa-seedling"></i> Supported Classes (100-Image Tomato Subset)</h5>
+                </div>
+                <div class="card-body">
+                    <ul>
+                        <li>Tomato — Bacterial Spot</li>
+                        <li>Tomato — Early Blight</li>
+                        <li>Tomato — Late Blight</li>
+                        <li>Tomato — Leaf Mold</li>
+                        <li>Tomato — Healthy</li>
+                    </ul>
+                    <p class="text-muted mb-0">The architecture supports expansion to more crops and classes when a larger dataset and retrained model are provided.</p>
+                </div>
+            </div>
+            
+            <div class="alert alert-warning">
+                <h5><i class="fas fa-exclamation-triangle"></i> Important Disclaimer</h5>
+                <p class="mb-0">This system is developed as an academic project for MSc IT and is intended for educational purposes. The 100-image subset is a small demonstration set and is not sufficient for reliable real-world diagnosis. It should not replace professional agricultural advice. Always consult qualified agricultural specialists for critical decisions.</p>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

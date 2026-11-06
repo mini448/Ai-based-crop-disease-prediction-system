@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container py-5">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2 class="text-success"><i class="fas fa-eye"></i> Prediction Details</h2>
+        <a href="{{ url_for('prediction.history') }}" class="btn btn-outline-success">
+            <i class="fas fa-arrow-left"></i> Back to History
+        </a>
+    </div>
+    
+    <div class="row g-4">
+        <div class="col-md-6">
+            <div class="card shadow">
+                <div class="card-header bg-success text-white">
+                    <h5 class="mb-0"><i class="fas fa-image"></i> Image</h5>
+                </div>
+                <div class="card-body text-center">
+                    <img src="{{ url_for('static', filename=prediction.image_path.split('static/')[1]) if 'static/' in prediction.image_path else prediction.image_path }}" 
+                         alt="Leaf" class="img-fluid rounded" style="max-height: 400px;">
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-md-6">
+            <div class="card shadow mb-4">
+                <div class="card-header bg-info text-white">
+                    <h5 class="mb-0"><i class="fas fa-info-circle"></i> Prediction Info</h5>
+                </div>
+                <div class="card-body">
+                    <p><strong>Crop:</strong> {{ prediction.crop_name }}</p>
+                    <p><strong>Disease:</strong> {{ prediction.predicted_disease.replace('_', ' ') }}</p>
+                    <p><strong>Confidence:</strong> {{ "%.1f"|format(prediction.confidence * 100) }}%</p>
+                    <p><strong>Date:</strong> {{ prediction.created_at }}</p>
+                </div>
+            </div>
+            
+            {% if disease_info %}
+            <div class="card shadow">
+                <div class="card-header bg-warning text-dark">
+                    <h5 class="mb-0"><i class="fas fa-book"></i> Disease Information</h5>
+                </div>
+                <div class="card-body">
+                    <h6>Symptoms:</h6>
+                    <p>{{ disease_info.symptoms }}</p>
+                    <h6>Causes:</h6>
+                    <p>{{ disease_info.causes }}</p>
+                    <h6>Prevention:</h6>
+                    <p>{{ disease_info.prevention }}</p>
+                    <h6>Treatment Guidance:</h6>
+                    <p>{{ disease_info.treatment_guidance }}</p>
+                </div>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock %}

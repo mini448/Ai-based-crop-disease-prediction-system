@@ -1,0 +1,150 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container-fluid">
+    <div class="row">
+        <!-- Sidebar -->
+        <nav class="col-md-3 col-lg-2 d-md-block bg-light sidebar collapse">
+            <div class="position-sticky pt-3">
+                <ul class="nav flex-column">
+                    <li class="nav-item">
+                        <a class="nav-link text-success" href="{{ url_for('dashboard.index') }}">
+                            <i class="fas fa-tachometer-alt"></i> Dashboard
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-success" href="{{ url_for('prediction.detect') }}">
+                            <i class="fas fa-camera"></i> Disease Detection
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-success" href="{{ url_for('prediction.history') }}">
+                            <i class="fas fa-history"></i> Prediction History
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active text-success" href="{{ url_for('dashboard.analytics') }}">
+                            <i class="fas fa-chart-bar"></i> Analytics
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+
+        <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+            <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+                <h1 class="h2">Analytics Dashboard</h1>
+            </div>
+
+            <div class="row g-4 mb-4">
+                <div class="col-xl-3 col-md-6">
+                    <div class="card border-0 shadow-sm bg-primary text-white">
+                        <div class="card-body text-center">
+                            <h3>{{ analytics.total }}</h3>
+                            <p class="mb-0">Total Predictions</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-3 col-md-6">
+                    <div class="card border-0 shadow-sm bg-success text-white">
+                        <div class="card-body text-center">
+                            <h3>{{ analytics.healthy }}</h3>
+                            <p class="mb-0">Healthy Detections</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-3 col-md-6">
+                    <div class="card border-0 shadow-sm bg-warning text-dark">
+                        <div class="card-body text-center">
+                            <h3>{{ analytics.diseased }}</h3>
+                            <p class="mb-0">Diseased Detections</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-3 col-md-6">
+                    <div class="card border-0 shadow-sm bg-info text-white">
+                        <div class="card-body text-center">
+                            <h3>{{ "%.1f"|format((analytics.healthy / analytics.total * 100) if analytics.total > 0 else 0) }}%</h3>
+                            <p class="mb-0">Health Rate</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row g-4">
+                <div class="col-lg-8">
+                    <div class="card shadow-sm">
+                        <div class="card-header bg-success text-white">
+                            <h5 class="mb-0"><i class="fas fa-chart-bar"></i> Most Frequently Detected Diseases</h5>
+                        </div>
+                        <div class="card-body">
+                            <canvas id="barChart" width="400" height="200"></canvas>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="card shadow-sm">
+                        <div class="card-header bg-success text-white">
+                            <h5 class="mb-0"><i class="fas fa-chart-pie"></i> Overall Distribution</h5>
+                        </div>
+                        <div class="card-body">
+                            <canvas id="pieChart" width="400" height="200"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+    // Bar Chart
+    const barCtx = document.getElementById('barChart').getContext('2d');
+    new Chart(barCtx, {
+        type: 'bar',
+        data: {
+            labels: [{% for disease in analytics.top_diseases %}'{{ disease.predicted_disease.replace('_', ' ') }}'{% if not loop.last %}, {% endif %}{% endfor %}],
+            datasets: [{
+                label: 'Number of Detections',
+                data: [{% for disease in analytics.top_diseases %}{{ disease.count }}{% if not loop.last %}, {% endif %}{% endfor %}],
+                backgroundColor: '#28a745'
+            }]
+        },
+        options: {
+            responsive: true,
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    ticks: {
+                        stepSize: 1
+                    }
+                }
+            }
+        }
+    });
+
+    // Pie Chart
+    const pieCtx = document.getElementById('pieChart').getContext('2d');
+    new Chart(pieCtx, {
+        type: 'doughnut',
+        data: {
+            labels: ['Healthy', 'Diseased'],
+            datasets: [{
+                data: [{{ analytics.healthy }}, {{ analytics.diseased }}],
+                backgroundColor: ['#28a745', '#ffc107']
+            }]
+        },
+        options: {
+            responsive: true,
+            plugins: {
+                legend: {
+                    position: 'bottom',
+                }
+            }
+        }
+    });
+</script>
+{% endblock %}

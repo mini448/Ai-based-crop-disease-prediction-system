@@ -1,0 +1,8 @@
+{
+  "dataset_dir": "D:\\crop disease\\dataset",
+  "num_classes": 5,
+  "is_demo_dataset": true,
+  "total_images": 50,
+  "demo_files": 50,
+  "note": "Demo dataset: predictions are not reliable for real leaf images. Run PlantVillage_100_Image_Setup/create_100_dataset.py to generate real images, then retrain with: python -m ml_model.train_model"
+}

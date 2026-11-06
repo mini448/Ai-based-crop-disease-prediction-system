@@ -1,0 +1,63 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container py-5">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2 class="text-success"><i class="fas fa-history"></i> Prediction History</h2>
+        <a href="{{ url_for('prediction.detect') }}" class="btn btn-success">
+            <i class="fas fa-camera"></i> New Detection
+        </a>
+    </div>
+    
+    {% if predictions %}
+    <div class="card shadow">
+        <div class="card-body p-0">
+            <div class="table-responsive">
+                <table class="table table-hover mb-0">
+                    <thead class="bg-success text-white">
+                        <tr>
+                            <th>#</th>
+                            <th>Image</th>
+                            <th>Crop</th>
+                            <th>Disease</th>
+                            <th>Confidence</th>
+                            <th>Date</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for pred in predictions %}
+                        <tr>
+                            <td>{{ loop.index }}</td>
+                            <td>
+                                <img src="{{ url_for('static', filename=pred.image_path.split('static/')[1]) if 'static/' in pred.image_path else pred.image_path }}" 
+                                     alt="Leaf" style="width: 50px; height: 50px; object-fit: cover;" class="rounded">
+                            </td>
+                            <td>{{ pred.crop_name }}</td>
+                            <td>{{ pred.predicted_disease.replace('_', ' ') }}</td>
+                            <td>{{ "%.1f"|format(pred.confidence * 100) }}%</td>
+                            <td>{{ pred.created_at }}</td>
+                            <td>
+                                <a href="{{ url_for('prediction.view_result', pred_id=pred.id) }}" class="btn btn-sm btn-success">
+                                    <i class="fas fa-eye"></i> View
+                                </a>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    {% else %}
+    <div class="text-center py-5">
+        <i class="fas fa-inbox fa-4x text-muted mb-3"></i>
+        <h4 class="text-muted">No predictions yet</h4>
+        <p class="text-muted">Start by detecting diseases on your crop leaves</p>
+        <a href="{{ url_for('prediction.detect') }}" class="btn btn-success">
+            <i class="fas fa-camera"></i> Detect Disease
+        </a>
+    </div>
+    {% endif %}
+</div>
+{% endblock %}
