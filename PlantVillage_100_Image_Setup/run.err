@@ -1,0 +1,60 @@
+2026-11-05 15:57:45.490107: I tensorflow/core/util/port.cc:113] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
+WARNING:tensorflow:From D:\crop disease\.venv\Lib\site-packages\keras\src\losses.py:2976: The name tf.losses.sparse_softmax_cross_entropy is deprecated. Please use tf.compat.v1.losses.sparse_softmax_cross_entropy instead.
+
+Dl Completed...: 0 url [00:00, ? url/s]
+Dl Size...: 0 MiB [00:00, ? MiB/s][A
+
+Extraction completed...: 0 file [00:00, ? file/s][A[ADl Completed...:   0%|          | 0/1 [00:00<?, ? url/s]
+Dl Size...: 0 MiB [00:00, ? MiB/s][A
+
+Extraction completed...: 0 file [00:00, ? file/s][A[ADl Completed...:   0%|          | 0/1 [00:03<?, ? url/s]
+Dl Size...:   0%|          | 0/827 [00:03<?, ? MiB/s][A
+
+Extraction completed...: 0 file [00:03, ? file/s][A[A
+Dl Size...:   0%|          | 1/827 [00:05<1:10:42,  5.14s/ MiB][ADl Completed...:   0%|          | 0/1 [00:05<?, ? url/s]
+Dl Size...:   0%|          | 1/827 [00:05<1:10:42,  5.14s/ MiB][A
+
+Extraction completed...: 0 file [00:05, ? file/s][A[ADl Completed...:   0%|          | 0/1 [00:05<?, ? url/s]
+Dl Size...:   0%|          | 2/827 [00:05<1:10:37,  5.14s/ MiB][A
+
+Extraction completed...: 0 file [00:05, ? file/s][A[ADl Completed...:   0%|          | 0/1 [00:05<?, ? url/s]
+Dl Size...:   0%|          | 3/827 [00:05<1:10:31,  5.14s/ MiB][A
+
+Extraction completed...: 0 file [00:05, ? file/s][A[ADl Completed...:   0%|          | 0/1 [00:05<?, ? url/s]
+Dl Size...:   0%|          | 4/827 [00:05<1:10:26,  5.14s/ MiB][A
+
+Extraction completed...: 0 file [00:05, ? file/s][A[ADl Completed...:   0%|          | 0/1 [00:05<?, ? url/s]
+Dl Size...:   1%|          | 5/827 [00:05<1:10:21,  5.14s/ MiB][A
+
+Extraction completed...: 0 file [00:05, ? file/s][A[ADl Completed...:   0%|          | 0/1 [00:05<?, ? url/s]
+Dl Size...:   1%|          | 6/827 [00:05<1:10:16,  5.14s/ MiB][A
+
+Extraction completed...: 0 file [00:05, ? file/s][A[ADl Completed...:   0%|          | 0/1 [00:05<?, ? url/s]
+Dl Size...:   1%|          | 7/827 [00:05<1:10:11,  5.14s/ MiB][A
+
+Extraction completed...: 0 file [00:05, ? file/s][A[ADl Completed...:   0%|          | 0/1 [00:05<?, ? url/s]
+Dl Size...:   1%|          | 8/827 [00:05<1:10:06,  5.14s/ MiB][A
+
+Extraction completed...: 0 file [00:05, ? file/s][A[A
+Dl Size...:   1%|1         | 9/827 [00:06<07:17,  1.87 MiB/s]  [ADl Completed...:   0%|          | 0/1 [00:06<?, ? url/s]
+Dl Size...:   1%|1         | 9/827 [00:06<07:17,  1.87 MiB/s][A
+
+Extraction completed...: 0 file [00:06, ? file/s][A[ADl Completed...:   0%|          | 0/1 [00:06<?, ? url/s]
+Dl Size...:   1%|1         | 10/827 [00:06<07:16,  1.87 MiB/s][A
+
+Extraction completed...: 0 file [00:06, ? file/s][A[ADl Completed...:   0%|          | 0/1 [00:06<?, ? url/s]
+Dl Size...:   1%|1         | 11/827 [00:06<07:16,  1.87 MiB/s][A
+
+Extraction completed...: 0 file [00:06, ? file/s][A[ADl Completed...:   0%|          | 0/1 [00:06<?, ? url/s]
+Dl Size...:   1%|1         | 12/827 [00:06<07:15,  1.87 MiB/s][A
+
+Extraction completed...: 0 file [00:06, ? file/s][A[ADl Completed...:   0%|          | 0/1 [00:06<?, ? url/s]
+Dl Size...:   2%|1         | 13/827 [00:06<07:15,  1.87 MiB/s][A
+
+Extraction completed...: 0 file [00:06, ? file/s][A[ADl Completed...:   0%|          | 0/1 [00:06<?, ? url/s]
+Dl Size...:   2%|1         | 14/827 [00:06<07:14,  1.87 MiB/s][A
+
+Extraction completed...: 0 file [00:06, ? file/s][A[ADl Completed...:   0%|          | 0/1 [00:06<?, ? url/s]
+Dl Size...:   2%|1         | 15/827 [00:06<07:14,  1.87 MiB/s][A
+
+Extraction completed...: 0 file [00:06, ? file/s][A[A
